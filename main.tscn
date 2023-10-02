@@ -64,3 +64,10 @@ mesh = SubResource("BoxMesh_77c6p")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 shape = SubResource("BoxShape3D_vutr2")
+
+[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="."]
+node_a = NodePath("../JointConnector")
+node_b = NodePath("../RigidBody3D")
+linear_limit_x/restitution = 1.0
+linear_limit_y/restitution = 1.0
+linear_limit_z/restitution = 1.0
