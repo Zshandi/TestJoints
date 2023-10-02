@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d0irtyh7whtga"]
+[gd_scene load_steps=6 format=3 uid="uid://d0irtyh7whtga"]
 
 [ext_resource type="Script" path="res://JointConnector.gd" id="1_dtto3"]
 
@@ -11,15 +11,6 @@ height = 1.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_v28ia"]
 height = 1.0
-
-[sub_resource type="BoxMesh" id="BoxMesh_hthjh"]
-size = Vector3(0.2, 0.2, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_77c6p"]
-size = Vector3(0.4, 0.4, 0.4)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_vutr2"]
-size = Vector3(0.4, 0.4, 0.4)
 
 [node name="Node3D" type="Node3D"]
 
@@ -36,6 +27,7 @@ mesh = SubResource("BoxMesh_51yu3")
 shape = SubResource("BoxShape3D_m2884")
 
 [node name="JointConnector" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 script = ExtResource("1_dtto3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="JointConnector"]
@@ -44,10 +36,6 @@ shape = SubResource("CylinderShape3D_vglr8")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="JointConnector"]
 mesh = SubResource("CylinderMesh_v28ia")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="JointConnector"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0.5)
-mesh = SubResource("BoxMesh_hthjh")
-
 [node name="Joint_AnchorToConnector" type="Generic6DOFJoint3D" parent="."]
 node_a = NodePath("../JointAnchor")
 node_b = NodePath("../JointConnector")
@@ -55,19 +43,3 @@ angular_limit_y/enabled = false
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.982784, 0, -0.184758, 0, 1, 0, 0.184758, 0, 0.982784, -1.05322, 0.42118, 6.28336)
-
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
-mesh = SubResource("BoxMesh_77c6p")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
-shape = SubResource("BoxShape3D_vutr2")
-
-[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="."]
-node_a = NodePath("../JointConnector")
-node_b = NodePath("../RigidBody3D")
-linear_limit_x/restitution = 1.0
-linear_limit_y/restitution = 1.0
-linear_limit_z/restitution = 1.0
