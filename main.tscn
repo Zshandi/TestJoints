@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0irtyh7whtga"]
+
+[ext_resource type="Script" path="res://JointConnector.gd" id="1_dtto3"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_51yu3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m2884"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_vglr8"]
+height = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_v28ia"]
+height = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_hthjh"]
+size = Vector3(0.2, 0.2, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.610394, 0.792098, 0, -0.792098, 0.610394, 0, 17.0929, 0)
+
+[node name="JointAnchor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="JointAnchor"]
+mesh = SubResource("BoxMesh_51yu3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="JointAnchor"]
+shape = SubResource("BoxShape3D_m2884")
+
+[node name="JointConnector" type="RigidBody3D" parent="."]
+script = ExtResource("1_dtto3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="JointConnector"]
+shape = SubResource("CylinderShape3D_vglr8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="JointConnector"]
+mesh = SubResource("CylinderMesh_v28ia")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="JointConnector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0.5)
+mesh = SubResource("BoxMesh_hthjh")
+
+[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="."]
+node_a = NodePath("../JointAnchor")
+node_b = NodePath("../JointConnector")
+angular_limit_y/enabled = false
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.982784, 0, -0.184758, 0, 1, 0, 0.184758, 0, 0.982784, -1.05322, 0.42118, 6.28336)
